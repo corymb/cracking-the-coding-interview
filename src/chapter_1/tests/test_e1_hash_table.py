@@ -6,9 +6,10 @@ def test_empty_hash_table():
     assert len(hash_table) == 0
 
 
-def test_insert():
+def test_insert(single_key_value_pair):
     hash_table = HashTable()
-    hash_table.insert('test', 5)
+    k, v = single_key_value_pair
+    hash_table.insert(k, v)
     assert len(hash_table) == 1
-    assert 'test' in hash_table.__repr__()
-    assert str(5) in hash_table.__repr__()
+    assert k in hash_table.__repr__()
+    assert v in hash_table.__repr__()
