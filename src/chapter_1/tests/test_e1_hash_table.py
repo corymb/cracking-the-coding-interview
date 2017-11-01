@@ -1,6 +1,6 @@
 import pytest
 
-from chapter_1.e1_hash_table import SimpleHashTable, INITIAL_BUCKET_COUNT
+from chapter_1.e1_hash_table import DynamicHashTable, SimpleHashTable, INITIAL_BUCKET_COUNT
 
 
 def test_empty_hash_table():
@@ -41,3 +41,15 @@ def test_key_error(hash_table):
 def test_initial_bucket_count():
     hash_table = SimpleHashTable()
     assert len(hash_table._buckets) == INITIAL_BUCKET_COUNT
+
+
+def test_len(hash_table):
+    assert len(hash_table) == 5
+    for i in range(20):
+        hash_table['test_insert_{}'.format(i)] = i
+    assert len(hash_table) == 25
+
+
+def test_load_factor_starts_at_zero():
+    hash_table = DynamicHashTable()
+    assert hash_table._load_factor == 0

@@ -6,10 +6,10 @@ class SimpleHashTable:
         self._buckets = [[] for x in range(INITIAL_BUCKET_COUNT)]
 
     def __len__(self):
-        return len([b for b in self._buckets if b])
+        return len([i for b in self._buckets for i in b if i])
 
     def __repr__(self):
-        return '{}'.format([b for b in self._buckets if b])
+        return '{}'.format([i for b in self._buckets for i in b if i])
 
     def __setitem__(self, key, value):
         self.insert(key, value)
@@ -29,3 +29,9 @@ class SimpleHashTable:
                 __, __, v = item.split(':')
                 return v
         raise KeyError
+
+
+class DynamicHashTable(SimpleHashTable):
+    def __init__(self):
+        super().__init__()
+        self._load_factor = 0
