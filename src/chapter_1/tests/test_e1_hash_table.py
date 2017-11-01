@@ -53,6 +53,17 @@ def test_len(hash_table):
     assert len(hash_table) == 25
 
 
+def test_iteration(hash_table, keys, values):
+    for k, v in hash_table:
+        assert k in keys
+        assert v in values
+
+
+def test_raises_stop_iteration():
+    with pytest.raises(StopIteration):
+        next(_ for _ in SimpleHashTable())
+
+
 def test_load_factor_starts_at_zero():
     hash_table = DynamicHashTable()
     assert hash_table._load_factor == 0

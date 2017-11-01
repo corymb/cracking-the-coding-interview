@@ -18,6 +18,13 @@ class SimpleHashTable:
     def __getitem__(self, key):
         return self.retrieve(key)
 
+    def __iter__(self):
+        for bucket in self._buckets:
+            for item in bucket:
+                _, k, v = item.split(':')
+                yield k, v
+        raise StopIteration
+
     def insert(self, key, value):
         bucket = hash(key) % len(self._buckets)
         self._buckets[bucket].append('{0}:{1}:{2}'.format(
