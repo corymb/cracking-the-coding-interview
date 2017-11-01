@@ -1,4 +1,5 @@
 INITIAL_BUCKET_COUNT = 11
+LOAD_FACTOR_THRESHOLD = 0.75
 
 
 class SimpleHashTable:
@@ -35,3 +36,7 @@ class DynamicHashTable(SimpleHashTable):
     def __init__(self):
         super().__init__()
         self._load_factor = 0
+        self._load_factor_threshold = LOAD_FACTOR_THRESHOLD
+
+    def _get_load_factor(self):
+        return round(len(self) / len(self._buckets), 2)

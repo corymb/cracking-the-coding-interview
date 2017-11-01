@@ -1,6 +1,9 @@
 import pytest
 
-from chapter_1.e1_hash_table import DynamicHashTable, SimpleHashTable, INITIAL_BUCKET_COUNT
+from chapter_1.e1_hash_table import (
+    DynamicHashTable, SimpleHashTable,
+    INITIAL_BUCKET_COUNT, LOAD_FACTOR_THRESHOLD
+)
 
 
 def test_empty_hash_table():
@@ -53,3 +56,18 @@ def test_len(hash_table):
 def test_load_factor_starts_at_zero():
     hash_table = DynamicHashTable()
     assert hash_table._load_factor == 0
+
+
+def test_load_factor_threshold_initialisation():
+    hash_table = DynamicHashTable()
+    hash_table._load_factor_threshold == LOAD_FACTOR_THRESHOLD
+
+
+def test_get_load_factor():
+    value_count = 5
+    hash_table = DynamicHashTable()
+    expected_value = round(value_count / INITIAL_BUCKET_COUNT, 2)  # 0.45
+    assert hash_table._get_load_factor() == 0.0
+    for i in range(value_count):
+        hash_table['test_insert_{}'.format(i)] = i
+    assert hash_table._get_load_factor() == expected_value
