@@ -1,6 +1,6 @@
 import pytest
 
-from chapter_1.e1_hash_table import HashTable
+from chapter_1.e1_hash_table import SimpleHashTable
 
 
 @pytest.fixture()
@@ -20,7 +20,7 @@ def native_dict(keys, values):
 
 @pytest.fixture()
 def hash_table(native_dict):
-    hash_table = HashTable()
+    hash_table = SimpleHashTable()
     for k, v in native_dict.items():
         hash_table[k] = v
     return hash_table

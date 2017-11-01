@@ -1,15 +1,15 @@
 import pytest
 
-from chapter_1.e1_hash_table import HashTable
+from chapter_1.e1_hash_table import SimpleHashTable, INITIAL_BUCKET_COUNT
 
 
 def test_empty_hash_table():
-    hash_table = HashTable()
+    hash_table = SimpleHashTable()
     assert len(hash_table) == 0
 
 
 def test_insert(single_key_value_pair):
-    hash_table = HashTable()
+    hash_table = SimpleHashTable()
     k, v = single_key_value_pair
     hash_table.insert(k, v)
     assert len(hash_table) == 1
@@ -23,7 +23,7 @@ def test_retrieve(hash_table, single_key_value_pair):
 
 
 def test_object_model_set(single_key_value_pair):
-    hash_table = HashTable()
+    hash_table = SimpleHashTable()
     key, value = single_key_value_pair
     hash_table[key] = value
 
@@ -36,3 +36,8 @@ def test_object_model_get(hash_table, single_key_value_pair):
 def test_key_error(hash_table):
     with pytest.raises(KeyError):
         hash_table['non_existent_key']
+
+
+def test_initial_bucket_count():
+    hash_table = SimpleHashTable()
+    assert len(hash_table._buckets) == INITIAL_BUCKET_COUNT
