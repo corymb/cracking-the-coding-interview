@@ -1,3 +1,7 @@
+import math
+from itertools import dropwhile
+
+
 INITIAL_BUCKET_COUNT = 11
 LOAD_FACTOR_THRESHOLD = 0.75
 
@@ -19,11 +23,7 @@ class SimpleHashTable:
         return self.retrieve(key)
 
     def __iter__(self):
-        for bucket in self._buckets:
-            for item in bucket:
-                _, k, v = item.split(':')
-                yield k, v
-        raise StopIteration
+        return (i.split(':')[1:] for b in self._buckets for i in b if i)
 
     def insert(self, key, value):
         bucket = hash(key) % len(self._buckets)
@@ -38,12 +38,31 @@ class SimpleHashTable:
                 return v
         raise KeyError
 
-
 class DynamicHashTable(SimpleHashTable):
+    """
+    Dynamically resizing Hash Table
+
+    - Recalculates buckets and redistributes once load factor is too high
+    - Leverages prime numbers to improve hash distribution
+    - Constant time look up (average case)
+    - Linear time look up (worst case) on rebalance
+    """
     def __init__(self):
         super().__init__()
         self._load_factor = 0
         self._load_factor_threshold = LOAD_FACTOR_THRESHOLD
+        # Get prime after INITIAL_BUCKET_COUNT:
+        self._primes = (i for i in range(INITIAL_BUCKET_COUNT, 10000)
+            if all(i % j != 0 for j in range(2, int(math.sqrt(i)) + 1)))
 
     def _get_load_factor(self):
         return round(len(self) / len(self._buckets), 2)
+
+    def _generate_buckets(self, count):
+        return [[] for _ in range(count)]
+
+    def _rehash(self):
+        items = (i for i in self)
+        self._buckets = self._generate_buckets(next(self._primes))
+        for k, v in items:
+            self.insert(k, v)

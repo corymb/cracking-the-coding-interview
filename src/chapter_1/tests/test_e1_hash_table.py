@@ -82,3 +82,40 @@ def test_get_load_factor():
     for i in range(value_count):
         hash_table['test_insert_{}'.format(i)] = i
     assert hash_table._get_load_factor() == expected_value
+
+
+def test_bucket_generation():
+    hash_table = DynamicHashTable()
+    expected_count = 10
+    buckets = hash_table._generate_buckets(expected_count)
+    assert len(buckets) == expected_count
+
+
+def test_rehash_increases_bucket_count(dynamic_hash_table, first_table_primes):
+    for i in first_table_primes:
+        dynamic_hash_table._rehash()
+        assert i == len(dynamic_hash_table._buckets)
+
+
+def test_length_retained_after_rehash(dynamic_hash_table):
+    assert len(dynamic_hash_table) == 5
+    dynamic_hash_table._rehash()
+    assert len(dynamic_hash_table) == 5
+
+
+def test_items_retained_after_rehash(dynamic_hash_table, native_dict):
+    for k, v in native_dict.items():
+        assert dynamic_hash_table[k] == v
+    dynamic_hash_table._rehash()
+    for k, v in native_dict.items():
+        assert dynamic_hash_table[k] == v
+
+
+# def test_rehash_method_called_after_threshold_breached():
+#     pass
+
+
+def test_prime_list(dynamic_hash_table, first_table_primes):
+    primes = list(dynamic_hash_table._primes)
+    assert len(primes) == 1225  # number of primes between 11-10,000
+    assert primes[:15] == first_table_primes

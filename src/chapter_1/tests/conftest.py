@@ -1,6 +1,6 @@
 import pytest
 
-from chapter_1.e1_hash_table import SimpleHashTable
+from chapter_1.e1_hash_table import DynamicHashTable, SimpleHashTable
 
 
 @pytest.fixture()
@@ -27,5 +27,18 @@ def hash_table(native_dict):
 
 
 @pytest.fixture()
+def dynamic_hash_table(native_dict):
+    # TODO: Parameterise
+    hash_table = DynamicHashTable()
+    for k, v in native_dict.items():
+        hash_table[k] = v
+    return hash_table
+
+@pytest.fixture()
 def single_key_value_pair(keys, values):
     return keys[0], values[0]
+
+
+@pytest.fixture()
+def first_table_primes():
+    return [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
