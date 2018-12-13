@@ -15,7 +15,7 @@ from string import ascii_letters
 
 # A O(n)
 # W O(n)
-def is_palindrome_permutation(xs):
+def base_case(xs):
     allowed = set(ascii_letters)
     letters = (x for x in xs if x in allowed)
     return sum(v for v in Counter(letters).values() if v % 2 == 1) < 2
@@ -23,7 +23,7 @@ def is_palindrome_permutation(xs):
 
 # A O(n)
 # W O(n)
-def is_palindrome_permutation2(xs):
+def is_palindrome_permutation(xs):
     frequency = {}
     for x in xs:
         c = _get_char_code(x)
@@ -44,7 +44,7 @@ def is_palindrome_permutation2(xs):
 
 # A O(n)
 # W O(n)
-def is_palindrome_permutation3(xs):
+def is_palindrome_permutation_2(xs):
     """
     This isn't necessarily more performant because although it avoids the
     second loop, it's still O(n) on account of not being able to avoid
@@ -72,7 +72,7 @@ def is_palindrome_permutation3(xs):
 
 # A O(n)
 # W O(n)
-def is_palindrome_permutation4(xs):
+def is_palindrome_permutation_3(xs):
     """
     'Bit Array' implementation; Still O(n)
     """
@@ -87,7 +87,7 @@ def is_palindrome_permutation4(xs):
     return bin(count_odd).count('1') - 1 <= 2
 
 
-# Helpers functions:
+# Helper functions:
 def _get_char_code(c):
     """
     Takes character, converts to ascii code and returns integer if input falls

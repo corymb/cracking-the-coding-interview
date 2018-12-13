@@ -1,8 +1,7 @@
-from collections import Counter
-from string import ascii_letters
-
 from hypothesis import example, given
 from hypothesis import strategies as st
+
+from src.c1.q4 import base_case
 
 
 # Limit to ASCII:
@@ -13,7 +12,5 @@ from hypothesis import strategies as st
 @example('55rfsjdoig0^%$#WYH-pali')
 @example('')
 def test_is_palindrome_permutation(q4, text):
-    allowed = set(ascii_letters)
-    letters = (c for c in text if c in allowed)
-    expected = sum(v for v in Counter(letters).values() if v % 2 == 1) < 2
+    expected = base_case(text)
     assert q4(text) == expected

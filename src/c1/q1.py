@@ -7,7 +7,7 @@ from itertools import tee
 
 
 # A O(n)
-def is_unique(xs):
+def base_case(xs):
     return True if len(set(xs)) == len(xs) else False
 
 
@@ -17,7 +17,7 @@ def is_unique(xs):
 
 
 # A O(n²)
-def is_unique_2(xs):
+def is_unique(xs):
     for i, c in enumerate(xs):
         if c in xs[:i] or c in xs[i+1:]:
             return False
@@ -26,7 +26,7 @@ def is_unique_2(xs):
 
 # A: O(n log n) for sort, O(n) for check
 # W: O(n log n) for sort, O(n) for check
-def is_unique_3(xs):
+def is_unique_2(xs):
     for x, y in _pairwise(sorted(xs)):
         if x == y:
             return False

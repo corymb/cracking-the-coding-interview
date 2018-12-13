@@ -14,7 +14,7 @@ Output: "Mr%20John%20Smith"
 
 # A O(n)
 # W O(n)
-def urlify(text, true_length):
+def base_case(text, true_length):
     return text.replace(' ', '%20')
 
 
@@ -25,7 +25,7 @@ def urlify(text, true_length):
 
 # A O(n)
 # W O(n)
-def urlify2(text, true_length):
+def urlify(text, true_length):
     # First pass:
     space_count = sum(1 for c in text if c == ' ') * 2
     # Initialise bytearray with headroom for substitutions:

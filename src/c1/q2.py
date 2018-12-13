@@ -14,17 +14,17 @@ from collections import Counter
 
 # A: O(n)
 # W: O(n)
-def is_permutation(a, b):
+def base_case(a, b):
     return len(a) == len(b) and set(a) == set(b)
 
 
 # A: O(n log n)
 # W: O(n)
-def is_permutation2(a, b):
+def is_permutation(a, b):
     return len(a) == len(b) and sorted(a) == sorted(b)
 
 
 # A: O(n)
 # W: O(n)
-def is_permutation3(a, b):
+def is_permutation_2(a, b):
     return len(a) == len(b) and Counter(a) == Counter(b)
