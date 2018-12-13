@@ -1,5 +1,5 @@
-from hypothesis import strategies as st
 from hypothesis import given
+from hypothesis import strategies as st
 
 
 @given(st.text())
